@@ -1,0 +1,11 @@
+                      precision    recall  f1-score   support
+
+          Accusation       0.14      0.03      0.05        37
+               Blame       0.58      0.52      0.55       263
+         Disapproval       0.74      0.55      0.63       181
+No explicit reproach       0.72      0.80      0.75       464
+       Non-Complaint       0.94      0.99      0.96       940
+
+            accuracy                           0.81      1885
+           macro avg       0.62      0.58      0.59      1885
+        weighted avg       0.80      0.81      0.80      1885

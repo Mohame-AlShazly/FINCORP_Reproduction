@@ -1,0 +1,7 @@
+{
+  "kind": "svc",
+  "char_weight": 1.0,
+  "C": 0.1,
+  "class_weight": "balanced",
+  "val_macro_f1": 0.6340456223369119
+}
