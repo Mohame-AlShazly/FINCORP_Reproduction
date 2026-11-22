@@ -1,0 +1,21 @@
+{
+  "experiment": "V4 - Targeted Accusation Weighting",
+  "model": "distilbert/distilroberta-base",
+  "seed": 40,
+  "loss": "Class-weighted cross-entropy",
+  "accusation_weight": 2.5,
+  "other_class_weights": 1.0,
+  "learning_rate": 2e-05,
+  "max_epochs": 5,
+  "epochs_completed": 5,
+  "batch_size": 8,
+  "gradient_accumulation": 2,
+  "max_length": 128,
+  "train_records": 3768,
+  "validation_records": 628,
+  "test_evaluated": false,
+  "best_epoch": 5,
+  "best_val_accuracy": 0.8009554140127388,
+  "best_val_macro_f1": 0.6184756893307317,
+  "timestamp_utc": "2026-11-11T07:46:47.092272+00:00"
+}

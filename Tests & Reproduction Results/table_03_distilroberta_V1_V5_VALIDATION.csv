@@ -1,0 +1,6 @@
+experiment,modification,validation_accuracy_pct,validation_global_macro_f1_pct,accusation_TP_of_12,evaluation_split
+V1,Broad class weighting,79.62,60.02,3,validation (n=628)
+V2,Unweighted,83.44,60.26,0,validation (n=628)
+V3,Threshold 0.05 applied to V2,82.17,62.61,3,validation (n=628)
+V4,Accusation weight 2.5,80.1,61.85,2,validation (n=628)
+V5,External transfer,83.28,59.87,0,validation (n=628)

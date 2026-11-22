@@ -1,0 +1,7 @@
+{
+  "original_external_records": 1232,
+  "exact_fincorp_overlaps_removed": 0,
+  "unique_usable_external_records": 1232,
+  "overlap_method": "lowercase + normalized whitespace",
+  "note": "Near-duplicate semantic overlaps not automatically excluded"
+}

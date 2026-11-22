@@ -1,0 +1,43 @@
+{
+  "experiment": "V5 Sequential External-to-FINCORP Transfer",
+  "model": "distilbert/distilroberta-base",
+  "seed": 40,
+  "external_source": "/kaggle/input/datasets/mshazly/jin-and-aletras-2021-complaint-severity-dataset/jin_aletras_complaints_only.csv",
+  "external_train_records": 1108,
+  "external_val_records": 124,
+  "fincorp_train_records": 3768,
+  "fincorp_val_records": 628,
+  "fincorp_test_records": 1885,
+  "test_evaluated": false,
+  "external_epochs": 3,
+  "fincorp_epochs": 5,
+  "batch_size": 8,
+  "gradient_accumulation": 2,
+  "learning_rate": 2e-05,
+  "max_length": 128,
+  "loss": "Standard cross-entropy, both stages",
+  "external_labels": [
+    "Accusation",
+    "Blame",
+    "Disapproval",
+    "No explicit reproach"
+  ],
+  "fincorp_labels": [
+    "Accusation",
+    "Blame",
+    "Disapproval",
+    "No explicit reproach",
+    "Non-Complaint"
+  ],
+  "external_result": {
+    "best_epoch": 3,
+    "best_val_macro_f1": 0.5707376700680272,
+    "best_val_accuracy": 0.6290322580645161
+  },
+  "fincorp_result": {
+    "best_epoch": 4,
+    "best_val_macro_f1": 0.5987436681025342,
+    "best_val_accuracy": 0.8328025477707006
+  },
+  "timestamp_utc": "2026-11-11T08:30:00.762311+00:00"
+}

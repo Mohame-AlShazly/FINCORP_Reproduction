@@ -1,0 +1,6 @@
+model,test_accuracy_pct,test_global_macro_f1_pct,reported_evidence
+Standard linear SVM C=1,81.49,58.88,FINCORP_severity_test_results.csv
+Balanced linear SVM C=0.3,82.23,61.52,FINCORP_severity_test_results.csv
+Hierarchical SVM,81.86,61.16,FINCORP_hierarchical_selected_test.csv
+Further-tuned flat SVM,81.38,60.21,FINCORP_exploratory_test_results.csv
+Severity-adjusted ensemble,81.11,60.92,README/report; verify associated raw output

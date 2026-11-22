@@ -1,0 +1,13 @@
+{
+  "experiment": "V3 Accusation probability threshold",
+  "source_checkpoint": "/kaggle/working/FINCORP_Experiments/outputs/distilroberta_unweighted_v2/best_model",
+  "validation_records": 628,
+  "test_evaluated": false,
+  "baseline_accuracy": 0.8343949044585988,
+  "baseline_macro_f1": 0.6026456113568682,
+  "selected_threshold": 0.05,
+  "adjusted_accuracy": 0.821656050955414,
+  "adjusted_macro_f1": 0.6261418808554018,
+  "selection_metric": "Validation macro-F1",
+  "timestamp_utc": "2026-11-11T07:04:18.533154+00:00"
+}

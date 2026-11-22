@@ -1,0 +1,39 @@
+{
+  "experiment": "DistilRoBERTa weighted CE v1",
+  "model": "distilbert/distilroberta-base",
+  "seed": 40,
+  "train_records": 3768,
+  "validation_records": 628,
+  "test_records": "Reserved, not evaluated",
+  "max_length": 128,
+  "batch_size": 8,
+  "gradient_accumulation": 2,
+  "epochs_run": 5,
+  "learning_rate": 2e-05,
+  "loss": "Capped sqrt-inverse-frequency weighted CE",
+  "labels": [
+    "Accusation",
+    "Blame",
+    "Disapproval",
+    "No explicit reproach",
+    "Non-Complaint"
+  ],
+  "class_counts": [
+    73,
+    525,
+    362,
+    929,
+    1879
+  ],
+  "class_weights": [
+    2.0906252495830744,
+    0.8349216635698001,
+    1.0054745818202278,
+    0.6276499874410092,
+    0.4413285175858891
+  ],
+  "best_epoch": 5,
+  "best_val_macro_f1": 0.6002239781576011,
+  "checkpoint": "/kaggle/working/FINCORP_Experiments/outputs/distilroberta_weighted_v1/best_model",
+  "timestamp_utc": "2026-11-11T06:30:12.891125+00:00"
+}

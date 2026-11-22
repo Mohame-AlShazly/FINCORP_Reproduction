@@ -1,0 +1,5 @@
+metric,published_pct,E5_notebook_pct,difference_percentage_points,comparability_note
+complaint_accuracy,94.38,98.52,4.14,Nonmatched split and aggregation; descriptive only
+complaint_macro_f1,93.78,98.41,4.63,Nonmatched split and aggregation; descriptive only
+severity_accuracy,73.77,86.84,13.07,Nonmatched split and aggregation; descriptive only
+severity_macro_f1,75.43,72.35,-3.08,Nonmatched split and aggregation; descriptive only
