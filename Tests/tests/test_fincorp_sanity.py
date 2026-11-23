@@ -1,6 +1,6 @@
 """FINCORP dataset and notebook sanity checks (no model training required).
 
-Run from repository root: python -m unittest discover -s tests -v
+Run from repository root: python -m unittest discover -s Tests/tests -v
 """
 import ast
 import csv
@@ -10,10 +10,10 @@ import unittest
 from collections import Counter
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-ORIGINAL = ROOT / '2-FINCORP_Original Code'
-IMPROVEMENT = ROOT / '4-FINCORP_Improvment Experiments'
-NOTEBOOK = ORIGINAL / 'MTL Model Experiments' / 'Quad Task (train-test-split).ipynb'
+ROOT = Path(__file__).resolve().parents[2]
+ORIGINAL = ROOT / 'FINCORP_Reproduction'
+IMPROVEMENT = ROOT / 'FINCORP_Improvment Experiments'
+NOTEBOOK = ORIGINAL / 'MTL Model Experiments' / 'Quad_Task_(train_test_split).ipynb'
 ORIGINAL_CSV = ORIGINAL / 'Database' / 'FINCORP.csv'
 IMPROVEMENT_CSV = IMPROVEMENT / 'data' / 'FINCORP.csv'
 COLUMNS = ['Domain', 'Complaint/ Opinion', 'Complaint Label', 'Severity level', 'Sentiment', 'Emotion']
