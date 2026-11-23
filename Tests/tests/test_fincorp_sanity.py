@@ -108,7 +108,7 @@ class TestProjectFiles(unittest.TestCase):
             self.assertIsInstance(source, (str, list))
             source = ''.join(source) if isinstance(source, list) else source
             # The installation command is a valid Colab/IPython magic, not Python AST.
-            python_source = '\\n'.join(
+            python_source = '\n'.join(
                 line for line in source.splitlines()
                 if not line.lstrip().startswith(('%', '!'))
             )
@@ -117,7 +117,7 @@ class TestProjectFiles(unittest.TestCase):
 
     def test_neural_notebook_covers_v1_to_v5(self):
         notebook = json.loads(NEURAL_NOTEBOOK.read_text(encoding='utf-8'))
-        source = '\\n'.join(''.join(cell.get('source', []))
+        source = '\n'.join(''.join(cell.get('source', []))
                            for cell in notebook['cells']
                            if cell.get('cell_type') == 'code')
         for experiment in ('V1', 'V2', 'V3', 'V4', 'V5'):
@@ -129,7 +129,7 @@ class TestProjectFiles(unittest.TestCase):
 
     def test_neural_notebook_v3_and_v5_dependencies(self):
         notebook = json.loads(NEURAL_NOTEBOOK.read_text(encoding='utf-8'))
-        source = '\\n'.join(''.join(cell.get('source', []))
+        source = '\n'.join(''.join(cell.get('source', []))
                            for cell in notebook['cells']
                            if cell.get('cell_type') == 'code')
         self.assertIn("OUT/'V2'/'validation_predictions.csv'", source,
