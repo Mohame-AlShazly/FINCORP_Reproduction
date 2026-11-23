@@ -1,3 +1,4 @@
+from pathlib import Path
 import zipfile,io,time
 import numpy as np,pandas as pd
 from scipy.sparse import hstack, csr_matrix
@@ -5,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import LinearSVC
 from sklearn.metrics import f1_score,accuracy_score
-with zipfile.ZipFile('/mnt/data/FINCORP-main.zip') as z: df=pd.read_csv(io.BytesIO(z.read('FINCORP-main/Database/FINCORP.csv')))
+with zipfile.ZipFile(Path(__file__).resolve().parents[1] / 'FINCORP-main.zip') as z: df=pd.read_csv(io.BytesIO(z.read('FINCORP-main/Database/FINCORP.csv')))
 txt=df['Complaint/ Opinion'].fillna('').astype(str).str.replace(r'http\S+',' URL ',regex=True).str.replace(r'@\w+',' USER ',regex=True)
 y=df['Severity level'].values
 idx=np.arange(len(y));tv,te=train_test_split(idx,test_size=.3,random_state=40,stratify=y);tr,va=train_test_split(tv,test_size=1/7,random_state=40,stratify=y[tv]);labels=np.unique(y)
