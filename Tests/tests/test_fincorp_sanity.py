@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 ORIGINAL = ROOT / 'FINCORP_Reproduction'
 IMPROVEMENT = ROOT / 'FINCORP_Improvment Experiments'
 NOTEBOOK = ORIGINAL / 'MTL Model Experiments' / 'Quad_Task_(train_test_split).ipynb'
+NEURAL_NOTEBOOK = IMPROVEMENT / 'code' / 'FINCORP_DistilRoBERTa_V1-V5.ipynb'
 ORIGINAL_CSV = ORIGINAL / 'Database' / 'FINCORP.csv'
 IMPROVEMENT_CSV = IMPROVEMENT / 'data' / 'FINCORP.csv'
 COLUMNS = ['Domain', 'Complaint/ Opinion', 'Complaint Label', 'Severity level', 'Sentiment', 'Emotion']
@@ -92,6 +93,53 @@ class TestProjectFiles(unittest.TestCase):
             with self.subTest(script=script.name):
                 ast.parse(script.read_text(encoding='utf-8-sig'), filename=str(script))
 
+
+    def test_neural_notebook_integrity_and_python_syntax(self):
+        self.assertTrue(NEURAL_NOTEBOOK.is_file(),
+                        f'Missing V1-V5 notebook: {NEURAL_NOTEBOOK}')
+        notebook = json.loads(NEURAL_NOTEBOOK.read_text(encoding='utf-8'))
+        self.assertEqual(notebook.get('nbformat'), 4)
+        cells = notebook.get('cells', [])
+        self.assertTrue(cells, 'V1-V5 notebook has no cells')
+        code_cells = [cell for cell in cells if cell.get('cell_type') == 'code']
+        self.assertGreaterEqual(len(code_cells), 7)
+        for idx, cell in enumerate(code_cells, start=1):
+            source = cell.get('source', [])
+            self.assertIsInstance(source, (str, list))
+            source = ''.join(source) if isinstance(source, list) else source
+            # The installation command is a valid Colab/IPython magic, not Python AST.
+            python_source = '\\n'.join(
+                line for line in source.splitlines()
+                if not line.lstrip().startswith(('%', '!'))
+            )
+            with self.subTest(cell=idx):
+                ast.parse(python_source, filename=f'{NEURAL_NOTEBOOK.name}:cell-{idx}')
+
+    def test_neural_notebook_covers_v1_to_v5(self):
+        notebook = json.loads(NEURAL_NOTEBOOK.read_text(encoding='utf-8'))
+        source = '\\n'.join(''.join(cell.get('source', []))
+                           for cell in notebook['cells']
+                           if cell.get('cell_type') == 'code')
+        for experiment in ('V1', 'V2', 'V3', 'V4', 'V5'):
+            with self.subTest(experiment=experiment):
+                self.assertIn(f"run('{experiment}')", source,
+                              f'Missing runnable {experiment} invocation')
+        self.assertIn("def run(name):", source)
+        self.assertIn("def train(", source)
+
+    def test_neural_notebook_v3_and_v5_dependencies(self):
+        notebook = json.loads(NEURAL_NOTEBOOK.read_text(encoding='utf-8'))
+        source = '\\n'.join(''.join(cell.get('source', []))
+                           for cell in notebook['cells']
+                           if cell.get('cell_type') == 'code')
+        self.assertIn("OUT/'V2'/'validation_predictions.csv'", source,
+                      'V3 should load V2 validation predictions')
+        self.assertIn('p[:,0]>=0.05', source,
+                      'V3 should apply the recorded Accusation threshold')
+        self.assertIn("checkpoint=train('V5_external_stage'", source,
+                      'V5 should train the external severity model first')
+        self.assertIn("return train('V5',tr,va,LABELS,starting=str(checkpoint))", source,
+                      'V5 should transfer the external checkpoint')
 
 if __name__ == '__main__':
     unittest.main()
