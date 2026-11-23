@@ -26,6 +26,7 @@ The following paths match the actual GitHub repository.
 │   └── README.md
 ├── FINCORP_Improvment Experiments/
 │   ├── code/
+│   │   └── FINCORP_DistilRoBERTa_V1-V5.ipynb
 │   ├── data/FINCORP.csv
 │   ├── FINCORP-main.zip
 │   ├── EXPERIMENT_LOG.md
@@ -49,7 +50,7 @@ The following paths match the actual GitHub repository.
 - **FINCORP released CSV:** 6,281 rows, six columns: `Domain`, `Complaint/ Opinion`, `Complaint Label`, `Severity level`, `Sentiment`, `Emotion`. The publication refers to 6,282 tweets; the downloadable CSV is the data actually analyzed here.
 - **Main Colab notebook:** Reads a CSV with the *literal* name `Fincorp.csv`, shuffles its rows, uses RoBERTa tokenization with maximum length 200, and creates train/test then train/validation partitions (30% test; 15% of remaining data for validation, seed 42). Because the original dataset file is named `FINCORP.csv`, upload a copy renamed **`Fincorp.csv`** to the Colab working directory or update the notebook's `read_csv` statements consistently.
 - **CPU scripts:** Use the original FINCORP data inside `FINCORP-main.zip`, change links/handles to placeholders, create stratified train/validation/test sets (seed 40), and extract word/character TF-IDF features **using training text only**.
-- **Neural extension:** Uses five severity classes on a fixed 3,768/628/1,885 train/validation/test split. V5 additionally uses 1,232 complaint-only external severity examples. The neural experiments here are accompanied by saved configurations and evaluations, but their complete executable training scripts were not found in the provided improvement ZIP.
+- **Neural extension:** Uses five severity classes on a fixed 3,768/628/1,885 train/validation/test split. V5 additionally uses 1,232 complaint-only external severity examples. The archived neural experiments are accompanied by saved configurations and evaluations. A runnable V1–V5 notebook is now available under `FINCORP_Improvment Experiments/code/`; it implements the experiment settings and exports new validation evidence.
 
 ## 4. Environment and hardware
 
@@ -146,7 +147,11 @@ See `Tests & Reproduction Results/CPU_SVM_Results/` for available test predictio
 
 **Actual platform:** Google Colab, GPU runtime (reported by the group). These are **separate neural severity experiments**, not the five sequential original quad-task model blocks. In Colab, each experiment was run with its corresponding configuration; V3 reused V2 predictions and required no new training. The exact GPU model, saved notebook cells and end-to-end training time require confirmation from the corresponding original Colab files/logs.
 
-The uploaded project includes metrics, configurations, validation predictions and training histories in `Tests & Reproduction Results/DistilRoBERTa_Results/`. The group confirms that the V1–V5 DistilRoBERTa experiments were **run in Google Colab with GPU acceleration**. The uploaded `FINCORP_Improvment Experiments(1).zip` includes CPU/SVM `.py` scripts, FINCORP/external datasets, a log and CPU outputs, **but it does not include the executed V1–V5 Colab notebooks or GPU training scripts**. Their validation metrics, histories and other evidence are separately archived under `Tests & Reproduction Results/DistilRoBERTa_Results/`. Add the original V1–V5 Colab notebook(s), as executed, to make these experiments rerunnable; do not represent the CPU `.py` scripts as their GPU training code.
+The project includes archived metrics, configurations, validation predictions and training histories under `Tests & Reproduction Results/DistilRoBERTa_Results/`, plus a runnable notebook at `FINCORP_Improvment Experiments/code/FINCORP_DistilRoBERTa_V1-V5.ipynb`.
+
+**Run the notebook:** Open it in Google Colab, enable GPU (Runtime → Change runtime type), and run the setup and functions cells. Run V2, then V3 (which uses V2's saved validation probabilities); V1, V4 and V5 can be run afterward. The notebook reads the repository's FINCORP and Jin–Aletras data, saves the best checkpoint from each training stage and exports metrics, confusion matrices, histories and prediction files to a ZIP. V5 trains an external four-class model before transferring its encoder to the FINCORP five-class task.
+
+**Verification and provenance:** The notebook is an executable implementation assembled from the archived experiment settings; the exact historical training source was not recovered. Do not equate archived metrics with fresh outputs without rerunning and checking. The five saved neural scores below are **archived validation outcomes**, not a claim of an independent GPU rerun by this repository update. The neural test partition remains reserved. Note that train class counts may differ by one record from archived configs even when split sizes are the same, because the exact historical split indices were not saved.
 
 | Run | Modification | Validation accuracy | Global validation macro-F1 |
 |---|---|---:|---:|
@@ -178,7 +183,7 @@ They passed against an extracted local copy of the uploaded data, notebook, and 
 
 **Expected runtime:** The full original training time and GPU memory were not established for the group's submitted run. Some CPU experiment logs provide per-candidate fitting times, but there is no verified whole-pipeline runtime. For GPU runs that take more than two hours, the professor requests a reduced execution finishing in under 30 minutes and the original full-run logs; neither should be claimed until demonstrated.
 
-**Further checks before tagging:** Verify the notebook on a fresh Google Colab runtime, exact library versions and hardware, and commands for each reported result. The seven static sanity checks are available in `Tests/`.
+**Further checks before tagging:** Verify the new V1–V5 notebook on a fresh Google Colab runtime, inspect new output files against archived metrics, record exact hardware and package versions, and preserve the executed notebook with outputs. The seven static sanity checks are available in `Tests/`.
 
 ## 9. Known differences and research interpretation
 
