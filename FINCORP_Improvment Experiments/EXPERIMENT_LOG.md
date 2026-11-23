@@ -54,8 +54,8 @@ training strategies for severity classification.
 - Best epoch: 4
 - Validation macro-F1: 0.6026
 - Validation accuracy: 0.8344
-- Training history: `outputs/distilroberta_weighted_v1/training_history.csv`
-- Best model: `outputs/distilroberta_weighted_v1/best_model/`
+- Training history: `Tests & Reproduction Results/DistilRoBERTa_Results/Training_History/distilroberta_unweighted_v2/training_history.csv`
+- Best model: `Tests & Reproduction Results/DistilRoBERTa_Results/Evaluation_Metrics/distilroberta_unweighted_v2/best_model/ (configuration only; model weights not uploaded)`
 - Test set: not evaluated
 
 ## Experiment V3 — Accusation Threshold Adjustment
