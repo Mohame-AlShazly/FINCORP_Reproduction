@@ -2,7 +2,7 @@
 
 **AI504 Assignment 2 — Reproduction and Validation of an NLP Research Study**
 
-> Repository documentation draft based on the available authors' notebook, submitted experiment scripts, and saved results. Confirm the final notebook, software versions, GPU, and paths before tagging the submission. The scores below are archived outcomes, **not** a claim that this package has been rerun.
+This repository contains the saved FINCORP reproduction notebook, improvement scripts, experiment results, and supporting evidence. Archived metrics have not all been independently rerun in a fresh GPU environment.
 
 ## 1. Paper and research question
 
@@ -14,27 +14,34 @@ Authors' public source code and FINCORP corpus: https://github.com/RohanBh23/FIN
 
 ## 2. Repository contents and provenance
 
-The paths below assume the folders have been copied from the project's Google Drive into one repository. Do not rename without updating these instructions.
+The following paths match the GitHub repository.
 
 ```text
 .
-├── README.md                                   # This document (group documentation)
-├── 2-FINCORP_Original Code/                   # Original authors' files
+├── README.md
+├── FINCORP_Reproduction/
 │   ├── Database/FINCORP.csv
-│   ├── MTL Model Experiments/
-│   │   └── Quad Task (train-test-split).ipynb  # Main original notebook
-│   └── README.md                               # Authors' README
-├── 3-FINCORP_Reproduction Code/               # Group's large Colab notebook (not inspected here)
-├── 4-FINCORP_Improvment Experiments/           # Group's available CPU scripts and records
-│   ├── FINCORP-main.zip
+│   ├── MTL Model Experiments/Quad_Task_(train_test_split).ipynb
+│   ├── MTL Model Experiments/Quad Task (Cross Validation).ipynb
+│   └── README.md
+├── FINCORP_Improvment Experiments/
 │   ├── code/
 │   ├── data/FINCORP.csv
+│   ├── FINCORP-main.zip
 │   ├── EXPERIMENT_LOG.md
-│   └── FINCORP_Jin_Aletras_External_Dataset_Ready/
-└── results/                                   # Archived predictions, histories, screenshots and tables
+│   └── requirements.txt
+├── Tests/
+│   ├── tests/test_fincorp_sanity.py
+│   ├── README_TESTS.md
+│   └── TEST_RUN_RESULTS.txt
+└── Tests & Reproduction Results/
+    ├── CPU_SVM_Results/
+    ├── DistilRoBERTa_Results/
+    ├── Reproduction_Screenshots/
+    └── table_*.csv
 ```
 
-**Reused from the authors:** FINCORP dataset, original quad-task architecture, tokenizer/model approach and training notebook. **Group work:** two reported Colab executions of the original five sequential experiment blocks and their archived outputs; separately executed CPU severity comparisons (SVM, hierarchical, exploratory models); GPU-accelerated Google Colab DistilRoBERTa severity experiments V1–V5 and result interpretation. The entire ~2 GB group reproduction notebook was not available for this documentation review, so any changes made in that notebook must be documented by its owners.
+**Reused from the authors:** FINCORP dataset, original quad-task architecture, tokenizer/model approach and training notebook. **Group work:** two reported Colab executions of the original five sequential experiment blocks and their archived outputs; separately executed CPU severity comparisons (SVM, hierarchical, exploratory models); GPU-accelerated Google Colab DistilRoBERTa severity experiments V1–V5 and result interpretation. A compact reproduction notebook is uploaded in this repository. The original full Colab runtime history is not archived here.
 
 ## 3. Data and preprocessing
 
@@ -72,15 +79,15 @@ Required imports seen in the supplied CPU scripts: `numpy`, `pandas`, `scipy`, `
 python -m pip install numpy pandas scipy scikit-learn
 ```
 
-**Version pins:** Not verified against the originally executed environment; do not assign guessed versions. Record them in `requirements.txt` after testing in a fresh environment.
+**Version pins:** Not verified against the originally executed environment; do not assign guessed versions. The dependency files list libraries used by each phase, but the exact historical Colab versions have not been confirmed, so version pins must be verified before the final submission.
 
 ## 5. Reproduce the original multitask notebook
 
-1. Open Google Colab, select a GPU runtime, and upload the **actual group reproduction notebook** from `3-FINCORP_Reproduction Code/`. The authors' reference notebook is `2-FINCORP_Original Code/MTL Model Experiments/Quad Task (train-test-split).ipynb`.
+1. Open Google Colab, select a GPU runtime, and upload the **actual group reproduction notebook** from `FINCORP_Reproduction/`. The authors' reference notebook is `FINCORP_Reproduction/MTL Model Experiments/Quad_Task_(train_test_split).ipynb`.
 2. Upload `FINCORP.csv` as **`Fincorp.csv`** into the same Colab runtime working directory, *unless your group notebook has already corrected that reference*. The original notebook contains more than one `read_csv('Fincorp.csv')` statement.
 3. Confirm the Colab runtime and packages are compatible with the notebook imports and RoBERTa download. Execute its setup, loading, tokenization, model creation, training, and evaluation cells in the sequence used for the archived group runs.
 4. **Execute the five original quad-task experiment blocks in their existing notebook order, sequentially, as the authors’ notebook is structured.** The group reports running the complete procedure twice to check consistency. Record the outputs for all five blocks in each execution where available; the E1–E5 table documents the archived five-block sequence. Do **not** reset or independently rebuild the five blocks unless explicitly presenting a separate, new test: the original notebook reuses a trainable RoBERTa encoder object and successive blocks may inherit updated encoder weights. Reproducing the sequence is distinct from five independent seeded trials.
-5. Save the output cells/screenshots for each block and preserve the full notebook execution order and run history. The full group notebook (~2 GB) was not supplied for direct inspection, so the two complete executions are reported from the group’s description, not independently verified from the notebook.
+5. Save the output cells/screenshots for each block and preserve the full notebook execution order and run history. The team reported two complete Colab executions. The archived screenshots support the recorded outputs, but the historical full GPU sessions were not independently rerun.
 6. Record complaint, severity, sentiment and emotion accuracy and F1. **The printed F1 is an average of per-batch macro-F1**, not a global macro-F1 computed from all test-row predictions. The archived evaluation also does not score all 1,885 test records. This limits direct equivalence to the publication.
 
 The archived author notebook uses RoBERTa `roberta-base`, BiGRU(100), batch size 32, Adam learning rate 1e-5, loss weights complaint/severity/sentiment/emotion = 1/1/0.5/0.5, and repeated blocks of 3 epochs at 150 steps per epoch. These are settings visible in the original source notebook; verify changes in the group's separate notebook.
@@ -100,16 +107,16 @@ The final report records the following E5 scores (accuracy / notebook batch-aver
 
 ## 6. Reproduce the group's CPU severity baselines
 
-These scripts are included in `4-FINCORP_Improvment Experiments/code/`. **As originally executed, they assume the input archive at `/mnt/data/FINCORP-main.zip` and write to `/mnt/data/`.** On a new machine, adjust those hardcoded paths or execute in an environment with the same paths before running. The ZIP already contains `FINCORP-main.zip`.
+These scripts are included in `FINCORP_Improvment Experiments/code/`. **As originally executed, they assume the input archive at `/mnt/data/FINCORP-main.zip` and write to `/mnt/data/`.** On a new machine, adjust those hardcoded paths or execute in an environment with the same paths before running. The ZIP already contains `FINCORP-main.zip`.
 
 Run from a shell **after** setting up the expected paths and installing dependencies:
 
 ```bash
-python '4-FINCORP_Improvment Experiments/code/FINCORP_severity_cpu_experiment.py'
-python '4-FINCORP_Improvment Experiments/code/FINCORP_hierarchical_severity_experiment.py'
-python '4-FINCORP_Improvment Experiments/code/FINCORP_severity_new_search.py'
-python '4-FINCORP_Improvment Experiments/code/FINCORP_ensemble_trial.py'
-python '4-FINCORP_Improvment Experiments/code/FINCORP_nbsvm_trial.py'
+python 'FINCORP_Improvment Experiments/code/FINCORP_severity_cpu_experiment.py'
+python 'FINCORP_Improvment Experiments/code/FINCORP_hierarchical_severity_experiment.py'
+python 'FINCORP_Improvment Experiments/code/FINCORP_severity_new_search.py'
+python 'FINCORP_Improvment Experiments/code/FINCORP_ensemble_trial.py'
+python 'FINCORP_Improvment Experiments/code/FINCORP_nbsvm_trial.py'
 ```
 
 The files above are genuine provided scripts; the commands are **not claimed to have been verified end-to-end in a fresh clone**. They represent separate exploratory analyses, not the original four-task neural model.
@@ -126,13 +133,13 @@ All percentages below are from saved test comparisons, evaluated on 1,885 record
 | Further-tuned SVM | 81.38 | 60.21 |
 | Severity-adjusted ensemble | 81.11 | 60.92 |
 
-See `results/CPU_SVM_Results/` for available test predictions, confusion matrices, and classification reports. Some exploratory analyses are documented with summaries rather than complete per-row evidence.
+See `Tests & Reproduction Results/CPU_SVM_Results/` for available test predictions, confusion matrices, and classification reports. Some exploratory analyses are documented with summaries rather than complete per-row evidence.
 
 ## 7. Additional neural severity experiments V1–V5
 
 **Actual platform:** Google Colab, GPU runtime (reported by the group). These are **separate neural severity experiments**, not the five sequential original quad-task model blocks. In Colab, each experiment was run with its corresponding configuration; V3 reused V2 predictions and required no new training. The exact GPU model, saved notebook cells and end-to-end training time require confirmation from the corresponding original Colab files/logs.
 
-The uploaded project includes metrics, configurations, validation predictions and training histories in `results/DistilRoBERTa_Results/`. The group confirms that the V1–V5 DistilRoBERTa experiments were **run in Google Colab with GPU acceleration**. The uploaded `4-FINCORP_Improvment Experiments(1).zip` includes CPU/SVM `.py` scripts, FINCORP/external datasets, a log and CPU outputs, **but it does not include the executed V1–V5 Colab notebooks or GPU training scripts**. Their validation metrics, histories and other evidence are separately archived under `results/DistilRoBERTa_Results/`. Add the original V1–V5 Colab notebook(s), as executed, to make these experiments rerunnable; do not represent the CPU `.py` scripts as their GPU training code.
+The uploaded project includes metrics, configurations, validation predictions and training histories in `Tests & Reproduction Results/DistilRoBERTa_Results/`. The group confirms that the V1–V5 DistilRoBERTa experiments were **run in Google Colab with GPU acceleration**. The uploaded `FINCORP_Improvment Experiments(1).zip` includes CPU/SVM `.py` scripts, FINCORP/external datasets, a log and CPU outputs, **but it does not include the executed V1–V5 Colab notebooks or GPU training scripts**. Their validation metrics, histories and other evidence are separately archived under `Tests & Reproduction Results/DistilRoBERTa_Results/`. Add the original V1–V5 Colab notebook(s), as executed, to make these experiments rerunnable; do not represent the CPU `.py` scripts as their GPU training code.
 
 | Run | Modification | Validation accuracy | Global validation macro-F1 |
 |---|---|---:|---:|
@@ -146,16 +153,25 @@ The uploaded project includes metrics, configurations, validation predictions an
 
 ## 8. Results, checks and expected execution time
 
-- Reproduction screenshots: `results/Reproduction_Screenshots/`
-- Archived CPU test predictions and evaluations: `results/CPU_SVM_Results/`
-- DistilRoBERTa experiment histories and metrics: `results/DistilRoBERTa_Results/`
-- Transcribed numerical tables and source reconciliation notes: `results/`
+Run the seven static sanity checks from the repository root:
+
+```bash
+python -m unittest discover -s Tests/tests -v
+```
+
+They passed against an extracted local copy of the uploaded data, notebook, and CPU scripts in the actual GitHub folder layout. This does not replace a fresh GPU reproduction.
+
+
+- Reproduction screenshots: `Tests & Reproduction Results/Reproduction_Screenshots/`
+- Archived CPU test predictions and evaluations: `Tests & Reproduction Results/CPU_SVM_Results/`
+- DistilRoBERTa experiment histories and metrics: `Tests & Reproduction Results/DistilRoBERTa_Results/`
+- Transcribed numerical tables and source reconciliation notes: `Tests & Reproduction Results/`
 
 **Result verification:** Compare model outputs to the archived predictions and confusion matrices, using global macro-F1 for the CPU experiments. Compare original notebook outputs only under their documented batch-averaging evaluation rule. The professor's instructions require a command for each reported result and a fresh-clone test. Such a full execution check has **not been performed here**.
 
 **Expected runtime:** The full original training time and GPU memory were not established for the group's submitted run. Some CPU experiment logs provide per-candidate fitting times, but there is no verified whole-pipeline runtime. For GPU runs that take more than two hours, the professor requests a reduced execution finishing in under 30 minutes and the original full-run logs; neither should be claimed until demonstrated.
 
-**Sanity checks to perform before tagging:** Dataset row count and column names; preserved stratified partition sizes (3,768/628/1,885) for severity experiments; train-only TF-IDF fitting; no validation/test examples in training; per-row prediction lengths; stable label mapping; and reproducible `README.md` commands in a fresh environment. These are review checkpoints, not tests claimed to have passed.
+**Further checks before tagging:** Verify the notebook on a fresh Google Colab runtime, exact library versions and hardware, and commands for each reported result. The seven static sanity checks are available in `Tests/`.
 
 ## 9. Known differences and research interpretation
 
