@@ -11,8 +11,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import LinearSVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score,f1_score,classification_report,confusion_matrix
-out=Path('/mnt/data')
-with zipfile.ZipFile(out/'FINCORP-main.zip') as z: df=pd.read_csv(io.BytesIO(z.read('FINCORP-main/Database/FINCORP.csv')))
+out=Path(__file__).resolve().parents[1] / 'outputs'
+out.mkdir(parents=True, exist_ok=True)
+archive=Path(__file__).resolve().parents[1] / 'FINCORP-main.zip'
+with zipfile.ZipFile(archive) as z: df=pd.read_csv(io.BytesIO(z.read('FINCORP-main/Database/FINCORP.csv')))
 texts=df['Complaint/ Opinion'].fillna('').astype(str).str.replace(r'http\S+',' URL ',regex=True).str.replace(r'@\w+',' USER ',regex=True)
 y=df['Severity level'].astype(str).values
 idx=np.arange(len(df)); trval,te=train_test_split(idx,test_size=.3,random_state=40,stratify=y)
