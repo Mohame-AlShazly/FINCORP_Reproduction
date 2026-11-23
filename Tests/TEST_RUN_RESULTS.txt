@@ -1,10 +1,5 @@
 FINCORP sanity-check verification
-Ran against extracted files from:
-- 2-FINCORP_Original Code.zip
-- 3-FINCORP_Reproduction Code.zip
-- 4-FINCORP_Improvment Experiments.zip
-
-Command: python -m unittest discover -s tests -v
+Command: python -m unittest discover -s Tests/tests -v
 Results: 7 tests passed, 0 failed, 0 errors.
-
-These tests verify static project files and dataset integrity only. They do not train the model, reproduce metrics, or verify GPU execution.
+Environment: local extracted copy matching the GitHub folder layout, using the uploaded original dataset, notebook and CPU scripts.
+This is not a GitHub-hosted CI run or a GPU model reproduction.
