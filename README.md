@@ -14,7 +14,7 @@ Authors' public source code and FINCORP corpus: https://github.com/RohanBh23/FIN
 
 ## 2. Repository contents and provenance
 
-The following paths match the GitHub repository.
+The following paths match the actual GitHub repository.
 
 ```text
 .
@@ -29,7 +29,8 @@ The following paths match the GitHub repository.
 │   ├── data/FINCORP.csv
 │   ├── FINCORP-main.zip
 │   ├── EXPERIMENT_LOG.md
-│   └── requirements.txt
+│   ├── requirements.txt
+│   └── requirements_neural.txt
 ├── Tests/
 │   ├── tests/test_fincorp_sanity.py
 │   ├── README_TESTS.md
@@ -107,9 +108,15 @@ The final report records the following E5 scores (accuracy / notebook batch-aver
 
 ## 6. Reproduce the group's CPU severity baselines
 
-These scripts are included in `FINCORP_Improvment Experiments/code/`. **As originally executed, they assume the input archive at `/mnt/data/FINCORP-main.zip` and write to `/mnt/data/`.** On a new machine, adjust those hardcoded paths or execute in an environment with the same paths before running. The ZIP already contains `FINCORP-main.zip`.
+These scripts are included in `FINCORP_Improvment Experiments/code/`. The uploaded scripts have been updated for portability: they read `FINCORP_Improvment Experiments/FINCORP-main.zip` and save generated files inside `FINCORP_Improvment Experiments/outputs/`. These are *path-only changes* to the CPU/SVM experiments; model configuration, splits, and evaluation logic are unchanged.
 
-Run from a shell **after** setting up the expected paths and installing dependencies:
+From the repository root, first install the CPU requirements and then run each script (Python 3.13 and these package pins were used for a local main-baseline verification):
+
+```bash
+python -m pip install -r 'FINCORP_Improvment Experiments/requirements.txt'
+```
+
+Then run:
 
 ```bash
 python 'FINCORP_Improvment Experiments/code/FINCORP_severity_cpu_experiment.py'
@@ -119,7 +126,7 @@ python 'FINCORP_Improvment Experiments/code/FINCORP_ensemble_trial.py'
 python 'FINCORP_Improvment Experiments/code/FINCORP_nbsvm_trial.py'
 ```
 
-The files above are genuine provided scripts; the commands are **not claimed to have been verified end-to-end in a fresh clone**. They represent separate exploratory analyses, not the original four-task neural model.
+The main CPU severity script was executed locally with the repository-layout fix and reproduced the recorded standard and balanced SVM results to rounding precision. The other exploratory scripts should be tested individually before treating the complete suite as verified. They represent separate exploratory analyses, not the original four-task neural model.
 
 ### Archived CPU held-out results
 
