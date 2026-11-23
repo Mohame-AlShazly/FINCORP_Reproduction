@@ -36,7 +36,7 @@ The following paths match the actual GitHub repository.
 │   ├── tests/test_fincorp_sanity.py
 │   ├── README_TESTS.md
 │   └── TEST_RUN_RESULTS.txt
-└── Tests & Reproduction Results/
+└── Reproduction Results/
     ├── CPU_SVM_Results/
     ├── DistilRoBERTa_Results/
     ├── Reproduction_Screenshots/
@@ -141,13 +141,13 @@ All percentages below are from saved test comparisons, evaluated on 1,885 record
 | Further-tuned SVM | 81.38 | 60.21 |
 | Severity-adjusted ensemble | 81.11 | 60.92 |
 
-See `Tests & Reproduction Results/CPU_SVM_Results/` for available test predictions, confusion matrices, and classification reports. Some exploratory analyses are documented with summaries rather than complete per-row evidence.
+See `Reproduction Results/CPU_SVM_Results/` for available test predictions, confusion matrices, and classification reports. Some exploratory analyses are documented with summaries rather than complete per-row evidence.
 
 ## 7. Additional neural severity experiments V1–V5
 
 **Actual platform:** Google Colab, GPU runtime (reported by the group). These are **separate neural severity experiments**, not the five sequential original quad-task model blocks. In Colab, each experiment was run with its corresponding configuration; V3 reused V2 predictions and required no new training. The exact GPU model, saved notebook cells and end-to-end training time require confirmation from the corresponding original Colab files/logs.
 
-The project includes archived metrics, configurations, validation predictions and training histories under `Tests & Reproduction Results/DistilRoBERTa_Results/`, plus a runnable notebook at `FINCORP_Improvment Experiments/code/FINCORP_DistilRoBERTa_V1-V5.ipynb`.
+The project includes archived metrics, configurations, validation predictions and training histories under `Reproduction Results/DistilRoBERTa_Results/`, plus a runnable notebook at `FINCORP_Improvment Experiments/code/FINCORP_DistilRoBERTa_V1-V5.ipynb`.
 
 **Run the notebook:** Open it in Google Colab, enable GPU (Runtime → Change runtime type), and run the setup and functions cells. Run V2, then V3 (which uses V2's saved validation probabilities); V1, V4 and V5 can be run afterward. The notebook reads the repository's FINCORP and Jin–Aletras data, saves the best checkpoint from each training stage and exports metrics, confusion matrices, histories and prediction files to a ZIP. V5 trains an external four-class model before transferring its encoder to the FINCORP five-class task.
 
@@ -174,10 +174,10 @@ python -m unittest discover -s Tests/tests -v
 They passed against an extracted local copy of the uploaded data, notebook, and CPU scripts in the actual GitHub folder layout. This does not replace a fresh GPU reproduction.
 
 
-- Reproduction screenshots: `Tests & Reproduction Results/Reproduction_Screenshots/`
-- Archived CPU test predictions and evaluations: `Tests & Reproduction Results/CPU_SVM_Results/`
-- DistilRoBERTa experiment histories and metrics: `Tests & Reproduction Results/DistilRoBERTa_Results/`
-- Transcribed numerical tables and source reconciliation notes: `Tests & Reproduction Results/`
+- Reproduction screenshots: `Reproduction Results/Reproduction_Screenshots/`
+- Archived CPU test predictions and evaluations: `Reproduction Results/CPU_SVM_Results/`
+- DistilRoBERTa experiment histories and metrics: `Reproduction Results/DistilRoBERTa_Results/`
+- Transcribed numerical tables and source reconciliation notes: `Reproduction Results/`
 
 **Result verification:** Compare model outputs to the archived predictions and confusion matrices, using global macro-F1 for the CPU experiments. Compare original notebook outputs only under their documented batch-averaging evaluation rule. The professor's instructions require a command for each reported result and a fresh-clone test. Such a full execution check has **not been performed here**.
 

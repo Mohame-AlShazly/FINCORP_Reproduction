@@ -22,7 +22,7 @@
 
 ### Figure 1 — Severity Label Distribution
 
-**File:** `Tests & Reproduction Results/DistilRoBERTa_Results/Figures/severity_label_distribution.png`
+**File:** `Reproduction Results/DistilRoBERTa_Results/Figures/severity_label_distribution.png`
 
 ![FINCORP Severity Label Distribution](../Tests%20%26%20Reproduction%20Results/DistilRoBERTa_Results/Figures/severity_label_distribution.png)
 
@@ -46,16 +46,16 @@ training strategies for severity classification.
 - Best epoch: 5
 - Validation macro-F1: 0.6002
 - Validation accuracy: 0.7962
-- Training history: `Tests & Reproduction Results/DistilRoBERTa_Results/Training_History/distilroberta_weighted_v1/training_history.csv`
-- Best model: `Tests & Reproduction Results/DistilRoBERTa_Results/Evaluation_Metrics/distilroberta_weighted_v1/best_model/ (configuration only; model weights are not uploaded)`
+- Training history: `Reproduction Results/DistilRoBERTa_Results/Training_History/distilroberta_weighted_v1/training_history.csv`
+- Best model: `Reproduction Results/DistilRoBERTa_Results/Evaluation_Metrics/distilroberta_weighted_v1/best_model/ (configuration only; model weights are not uploaded)`
 - Test set: not evaluated
 
 ## DistilRoBERTa unweighted CE v2
 - Best epoch: 4
 - Validation macro-F1: 0.6026
 - Validation accuracy: 0.8344
-- Training history: `Tests & Reproduction Results/DistilRoBERTa_Results/Training_History/distilroberta_unweighted_v2/training_history.csv`
-- Saved configuration (not trained weights): `Tests & Reproduction Results/DistilRoBERTa_Results/Evaluation_Metrics/distilroberta_unweighted_v2/best_model/config.json`
+- Training history: `Reproduction Results/DistilRoBERTa_Results/Training_History/distilroberta_unweighted_v2/training_history.csv`
+- Saved configuration (not trained weights): `Reproduction Results/DistilRoBERTa_Results/Evaluation_Metrics/distilroberta_unweighted_v2/best_model/config.json`
 - Test set: not evaluated
 
 ## Experiment V3 — Accusation Threshold Adjustment
@@ -76,7 +76,7 @@ training strategies for severity classification.
 - Validation accuracy: 0.8010
 - Validation macro-F1: 0.6185
 - Test set: untouched
-- Checkpoint: `Tests & Reproduction Results/DistilRoBERTa_Results/Evaluation_Metrics/distilroberta_targeted_v4/best_model/ (configuration only; model weights are not uploaded)`
+- Checkpoint: `Reproduction Results/DistilRoBERTa_Results/Evaluation_Metrics/distilroberta_targeted_v4/best_model/ (configuration only; model weights are not uploaded)`
 
 ## Experiment V5 — External-to-FINCORP Transfer
 - External dataset records after filtering: 1232
@@ -88,5 +88,5 @@ training strategies for severity classification.
 - FINCORP validation accuracy: 0.8328
 - FINCORP validation macro-F1: 0.5987
 - Test set: not evaluated
-- Checkpoints: `Tests & Reproduction Results/DistilRoBERTa_Results/Evaluation_Metrics/distilroberta_external_transfer_v5/ (configuration and evaluation files, not weights)`
+- Checkpoints: `Reproduction Results/DistilRoBERTa_Results/Evaluation_Metrics/distilroberta_external_transfer_v5/ (configuration and evaluation files, not weights)`
 - Limitation: Exact normalized text overlaps removed; semantic near-duplicates not yet audited.
